@@ -20,7 +20,7 @@ Syntax errors are displayed in an overlay using **[@glenjamin](https://github.co
 ## Installation
 
 ```bash
-git clone https://github.com/gaearon/react-transform-boilerplate.git
+git clone https://github.com/Antibioticvz/react-transform-boilerplate
 cd react-transform-boilerplate
 npm install
 npm start
