@@ -65,12 +65,23 @@ class RulesAndConditions extends React.Component {
 */
 var MyContactForm = React.createClass({
 
+    getInitialState() {
+        return {
+            disabled: true
+        };
+    },
+
     handleChange(event) {
         var checked = event.target.checked
         if(checked) {
-            this.ref.submitButton({
-                disabled: true
+            this.setState({
+                disabled: !event.target.checked
             });
+        } else {
+            this.setState({
+                disabled: !event.target.checked
+            });
+
         }
     },
 
@@ -87,7 +98,7 @@ var MyContactForm = React.createClass({
                 <ButtonGroup vertical block>
                     <Button type="reset" bsStyle="warning" bsSize="large">Reset</Button>
                     <p/>
-                    <Button ref="submitButton" type="submit" bsStyle="success" bsSize="large" disabled="true"
+                    <Button ref="submitButton" type="submit" bsStyle="success" bsSize="large" disabled={this.state.disabled}
                            >Submit</Button>
                     <p/>
                     <Button onClick={this.props.onHide} bsStyle="danger" bsSize="large">Close</Button>
@@ -129,4 +140,4 @@ var App = React.createClass({
     }
 });
 
-ReactDOM.render(<App />, document.body);
+ReactDOM.render(<App />, document.getElementById('booking'));
