@@ -67,8 +67,11 @@ var MyContactForm = React.createClass({
 
     handleChange(event) {
         var checked = event.target.checked
-
-        return disabled
+        if(checked) {
+            this.ref.submitButton({
+                disabled: true
+            });
+        }
     },
 
     render: function() {
