@@ -67,29 +67,58 @@ var MyContactForm = React.createClass({
 
     getInitialState() {
         return {
-            disabled: true
+            disabled: true,
+            style: null
         };
     },
 
     handleChange(event) {
-        var checked = event.target.checked
-        if(checked) {
+        this.setState(this.validationState());
+
+        var checked = event.target.checked;
+        var style = this.validationState();
+
+
+        if(checked && (JSON.stringify(style)!=='{"style":"error"}')) {
             this.setState({
-                disabled: !event.target.checked
+                disabled: false
             });
         } else {
             this.setState({
-                disabled: !event.target.checked
+                disabled: true
             });
-
         }
+    },
+
+
+    /* Antibiotic 26.01.2016
+     * function to validate email input
+     */
+    validationState() {
+        var mail = this.refs.mail.getValue();
+        var style = "error";
+
+        var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+        if(!re.test(mail)){
+            return{
+                style
+            }
+        }else {
+            style = null;
+            return{
+                style
+            }
+        }
+
     },
 
     render: function() {
         return (
             <form>
                 <Input type="text" label="Name" placeholder="Your Name" bsSize="large" />
-                <Input type="email" label="Email" placeholder="Your Email" bsSize="large"/>
+                <Input type="text" ref="mail" label="Email" placeholder="Your Email" bsSize="large" bsStyle={this.state.style}
+                       onChange={this.handleChange} hasFeedback/>
                 <Input type="textarea" label="Massage" placeholder="Please tell me more" bsSize="large"/>
 
                 <RulesAndConditions>Rules and Conditions</RulesAndConditions>
